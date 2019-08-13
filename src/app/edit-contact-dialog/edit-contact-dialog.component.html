@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>Edit</h1>
-<div mat-dialog-content>
+<!-- <div mat-dialog-content>
   <mat-form-field>
     <input matInput placeholder="Name" [(ngModel)]="data.name">
   </mat-form-field>
@@ -9,4 +9,26 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button [mat-dialog-close]="data" cdkFocusInitial>OK</button>
-</div>
+</div> -->
+
+<form class="example-form" [formGroup]="userAddressValidations">
+    <!-- <div [formGroup]="myGroup"> -->
+        <input formControlName="Name" [(ngModel)]="data.name">
+      <!-- </div> -->
+    <!-- <mat-form-field>
+        <input matInput placeholder="Name" [(ngModel)]="data.name" >
+      </mat-form-field> -->
+  <mat-form-field appearance="outline" class="col-sm-6">
+      <mat-label>10-digit Mobile Number</mat-label>
+      <input matInput formControlName="mobileNumber" maxlength="10" (keypress)=_keyPress($event) [(ngModel)]="data.phone">
+      <mat-error *ngIf="userAddressValidations.get('mobileNumber').hasError('required')">
+          Please fill out this field.
+      </mat-error>
+      <mat-error *ngIf="userAddressValidations.get('mobileNumber').hasError('pattern')">
+          It is not a valid mobile number.
+      </mat-error>
+  </mat-form-field>
+  <div mat-dialog-actions>
+      <button mat-button [mat-dialog-close]="data" cdkFocusInitial>OK</button>
+    </div> 
+</form>
