@@ -1,34 +1,36 @@
-<h1 mat-dialog-title>Edit</h1>
-<!-- <div mat-dialog-content>
-  <mat-form-field>
-    <input matInput placeholder="Name" [(ngModel)]="data.name">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Phone" [(ngModel)]="data.phone">
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>OK</button>
-</div> -->
+<form #loginForm="ngForm" class="example-form" [formGroup]="userAddressValidations">
 
-<form class="example-form" [formGroup]="userAddressValidations">
-    <!-- <div [formGroup]="myGroup"> -->
-        <input formControlName="Name" [(ngModel)]="data.name">
-      <!-- </div> -->
-    <!-- <mat-form-field>
-        <input matInput placeholder="Name" [(ngModel)]="data.name" >
-      </mat-form-field> -->
+  <!-- Name Field -->
   <mat-form-field appearance="outline" class="col-sm-6">
-      <mat-label>10-digit Mobile Number</mat-label>
-      <input matInput formControlName="mobileNumber" maxlength="10" (keypress)=_keyPress($event) [(ngModel)]="data.phone">
-      <mat-error *ngIf="userAddressValidations.get('mobileNumber').hasError('required')">
-          Please fill out this field.
-      </mat-error>
-      <mat-error *ngIf="userAddressValidations.get('mobileNumber').hasError('pattern')">
-          It is not a valid mobile number.
-      </mat-error>
+    <mat-label>Enter your Name</mat-label>
+    <input matInput formControlName="Name" [(ngModel)]="data.name" required>
   </mat-form-field>
+
+  <!-- Mobile Number Field -->
+  <mat-form-field appearance="outline" class="col-sm-6">
+    <mat-label>10-digit Mobile Number</mat-label>
+    <input matInput type="number" formControlName="mobileNumber" maxlength="10" [(ngModel)]="data.phone">
+    <mat-error *ngIf="userAddressValidations.get('mobileNumber').hasError('required')">
+      Please fill out this field.
+    </mat-error>
+    <mat-error *ngIf="userAddressValidations.get('mobileNumber').hasError('pattern')">
+      It is not a valid mobile number.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Email Address Field -->
+  <mat-form-field appearance="outline" class="col-sm-6">
+    <mat-label>enter email address</mat-label>
+    <input matInput formControlName="email" [(ngModel)]="data.email">
+    <mat-error *ngIf="userAddressValidations.get('email').hasError('required')">
+      Please fill out this field.
+    </mat-error>
+    <mat-error *ngIf="!userAddressValidations.get('email').valid && userAddressValidations.get('email').touched">
+      Please enter valid email address
+    </mat-error>
+  </mat-form-field>
+
   <div mat-dialog-actions>
-      <button mat-button [mat-dialog-close]="data" cdkFocusInitial>OK</button>
-    </div> 
+    <button mat-button [mat-dialog-close]="data" [disabled]="loginForm.form.invalid">OK</button>
+  </div>
 </form>
